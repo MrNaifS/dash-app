@@ -160,7 +160,9 @@ app.layout = html.Div([
                                     dbc.CardBody([
                                         dbc.Row([
                                             dbc.Col([
-                                                html.Img(src='/static/github.png', height='50px', **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
+                                                html.A([
+                                                    html.Img(src='/static/github.png', height='50px', **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
+                                                ], href='https://github.com/MrNaifS/dash-app')
                                             ], class_name='text-center'),
                                             dbc.Col([
                                                 html.Div("View the code of this Dash application by visiting the GitHub repository.", **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
