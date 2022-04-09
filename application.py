@@ -121,30 +121,6 @@ def chart_3():
     return fig
 
 
-def chart_4():
-    fig = px.line(melt, x="Category", y="Spend", color="Quarter", markers=True)
-    fig.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-    ))
-    return fig
-
-
-def chart_5():
-    fig = px.line(melt, y="Spend", x="Quarter", color="Category", markers=True)
-    fig.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-    ))
-    return fig
-
-
 def get_percentages():
     percentages = []
     q2_spendings = df['Quarter 2'].tolist()
@@ -166,7 +142,7 @@ def get_percentages():
 app.layout = html.Div([
 
     html.Div([
-        dbc.NavbarSimple(brand="Data Visualization Solution by Naif", color="#ffffff", class_name='shadow-sm')
+        dbc.NavbarSimple(brand="Data Visualization Solution by Naif", color="#ffffff", class_name='shadow-sm', fluid='lg')
     ], **{'data-aos':'fade-up'}),
 
     dbc.Container([
