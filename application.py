@@ -121,6 +121,18 @@ def chart_3():
     return fig
 
 
+def chart_4():
+    fig = px.line(melt, x="Category", y="Spend", color="Quarter", markers=True)
+    fig.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    ))
+    return fig
+
+
 def get_percentages():
     percentages = []
     q2_spendings = df['Quarter 2'].tolist()
@@ -268,7 +280,19 @@ app.layout = html.Div([
                                             ])
                                         ], class_name='shadow-sm')
                                     ], **{'data-aos':'zoom-in'})
-                                ], lg=6)
+                                ], lg=6),
+                                dbc.Col([
+                                    html.Div([
+                                        dbc.Card([
+                                            dbc.CardHeader("Line Chart"),
+                                            dbc.CardBody([
+                                                html.Div([
+                                                    dcc.Graph(figure=chart_4())
+                                                ], **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
+                                            ])
+                                        ], class_name='shadow-sm')
+                                    ], **{'data-aos':'zoom-in'})
+                                ])
                             ], class_name='g-3')
                         ])
                     ], class_name='shadow-sm')
