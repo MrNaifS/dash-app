@@ -10,6 +10,8 @@ application = app = Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP],
 )
 
+server = app.server
+
 
 app.index_string = '''
 <!DOCTYPE html>
