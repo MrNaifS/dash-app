@@ -11,6 +11,7 @@ sklearn = "*"
 numpy = "*"
 dash-bootstrap-components = "*"
 openpyxl = "*"
+gunicorn = "*"
 
 [dev-packages]
 
