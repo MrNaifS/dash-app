@@ -170,7 +170,7 @@ app.layout = html.Div([
                                             dbc.Col([
                                                 html.A([
                                                     html.Img(src='/static/powerpoint.png', height='50px', **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
-                                                ], href='/static/data-visualization-solution-by-naif.ppsx', download=True)
+                                                ], href='/static/data-visualization-solution-by-naif.pdf', download=True)
                                             ], class_name='border-start text-center'),
                                             dbc.Col([
                                                 html.Div("If the Dash application is not sufficient, view these slides that I have created.", **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
