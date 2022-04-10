@@ -7,7 +7,7 @@ import dash_bootstrap_components as dbc
 
 application = app = Dash(
     '__name__',
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
 )
 
 server = app.server
@@ -96,12 +96,12 @@ def chart_3():
     percentages = get_percentages()
     fig = go.Figure([
         go.Bar(
-            name = 'Quarter 2',
+            name = 'Quarter 2 (22.8k Total Spend)',
             x = df['Category'],
             y = df['Quarter 2']
         ),
         go.Bar(
-            name = 'Quarter 3',
+            name = 'Quarter 3 (25.9k Total Spend)',
             x = df['Category'],
             y = df['Quarter 3'],
             text = percentages,
@@ -153,7 +153,7 @@ app.layout = html.Div([
                     dbc.Card([
                         dbc.CardBody([
                             html.H4('Introduction', className='card-title'),
-                            html.P("I have decided to create a Dash application to display my solution. I have used Plotly to create the charts. Bootstrap was used to create the GUI. Furthermore, along with this Dash application I have created several slides to display my solution and I have provided a link to the GitHub repository of this Dash application.", className='card-text'),
+                            html.P("I have created a Dash application to display my solution. I have used Plotly to create the charts. Bootstrap was used to create the GUI. Furthermore, along with this Dash application I have created several slides to display my solution and I have provided a link to the GitHub repository of this Dash application.", className='card-text'),
                             html.Div([
                                 dbc.Card([
                                     dbc.CardHeader("Links"),
@@ -168,7 +168,9 @@ app.layout = html.Div([
                                                 html.Div("View the code of this Dash application by visiting the GitHub repository.", **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
                                             ], class_name='d-none d-lg-block'),
                                             dbc.Col([
-                                                html.Img(src='/static/powerpoint.png', height='50px', **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
+                                                html.A([
+                                                    html.Img(src='/static/powerpoint.png', height='50px', **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
+                                                ], href='/static/data-visualization-solution-by-naif.ppsx', download=True)
                                             ], class_name='border-start text-center'),
                                             dbc.Col([
                                                 html.Div("If the Dash application is not sufficient, view these slides that I have created.", **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
@@ -204,24 +206,30 @@ app.layout = html.Div([
                                         dbc.Row([
                                             dbc.Col([
                                                 html.Img(id='tab-image', src='/static/option-1.png', className='img-fluid', **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
-                                            ], className='text-center', lg=6),
+                                            ], className='text-center d-flex align-items-center', lg=6),
                                             dbc.Col([
                                                 html.Div([
                                                     dbc.Table([
                                                         html.Thead([
                                                             html.Tr([
-                                                                html.Th("Advantages"),
-                                                                html.Th("Disadvantages")
+                                                                html.Th([
+                                                                    html.I(className="bi bi-plus-circle me-2"),
+                                                                    "Advantages"
+                                                                ]),
+                                                                html.Th([
+                                                                    html.I(className="bi bi-dash-circle me-2"),
+                                                                    "Disadvantages"
+                                                                ])
                                                             ])
                                                         ]),
                                                         html.Tbody([
                                                             html.Tr([
-                                                                html.Td("All advertisement spendings of the two quarters are shown"),
-                                                                html.Td("Hard to analyze how advertisement spending has changed between the two quarters")
+                                                                html.Td("All spendings of the two quarters are shown."),
+                                                                html.Td("Hard to analyze how spending has changed between the two quarters.")
                                                             ]),
                                                             html.Tr([
-                                                                html.Td("All advertisement spendings for all relevant channels are shown"),
-                                                                html.Td("Hard to analyze how advertisement spending varies by channel")
+                                                                html.Td("All spendings for all relevant channels are shown."),
+                                                                html.Td("Hard to analyze how spending varies by channel.")
                                                             ])
                                                         ])
                                                     ], id='tab-table')
@@ -282,12 +290,12 @@ app.layout = html.Div([
                     dbc.Card([
                         dbc.CardBody([
                             html.H4('Step 3', className='card-title'),
-                            html.P('I have chosen the following chart to be the most effective way of communicating the data. It is advantageous because the advertisement spendings of each quarter and of each category can be compared side by side with a percentage value that indicates the change between the two quarters.', className='card-text'),
+                            html.P('I have chosen the following chart to be the most effective way of communicating the data. It is advantageous because the spendings of each quarter and of each category can be compared side by side with a percentage value that indicates the changes between the two quarters.', className='card-text'),
                             html.Div([
                                 dbc.Card([
                                     dbc.CardHeader("Pairwise Vertical Bars"),
                                     dbc.CardBody([
-                                        html.P("From the following chart we can see that direct mail continues to be the highest category in terms of advertisement spending with a 10% increase in the third quarter. Furthermore, spending on radio advertising has decreased by 28% in the third quarter. Meanwhile, during the third quarter the company has started spending on mobile advertisements unlike the second quarter where the company did not spend at all on mobile advertisements.", className="card-text"),
+                                        html.P("From the following chart we can see that direct mail continues to be the highest category in terms of spending with a 10% increase in the third quarter. Furthermore, spending on radio advertisements has decreased by 28% in the third quarter. Meanwhile, during the third quarter the company has started spending on mobile advertisements unlike the second quarter where the company did not spend at all on mobile advertisements.", className="card-text"),
                                         html.Div([
                                             dcc.Graph(figure=chart_3())
                                         ], **{'data-aos':'zoom-in', 'data-aos-delay':'500'})
@@ -313,38 +321,36 @@ app.layout = html.Div([
 def tab_content(active_tab):
 
     image = f'/static/{active_tab}.png'
-    table_header = [html.Thead(html.Tr([html.Th("Advantages"), html.Th("Disadvantages")]))]
+    table_header = [html.Thead(html.Tr([html.Th([html.I(className="bi bi-plus-circle me-2"), "Advantages"]), html.Th([html.I(className="bi bi-dash-circle me-2"), "Disadvantages"])]))]
 
     if active_tab == 'option-1':
-        row1 = html.Tr([html.Td("All advertisement spendings of the two quarters are shown"), html.Td("Hard to analyze how advertisement spending has changed between the two quarters")])
-        row2 = html.Tr([html.Td("All advertisement spendings for all relevant channels are shown"), html.Td("Hard to analyze how advertisement spending varies by channel")])
+        row1 = html.Tr([html.Td("All spendings of the two quarters are shown."), html.Td("Hard to analyze how spending has changed between the two quarters.")])
+        row2 = html.Tr([html.Td("All spendings for all relevant channels are shown."), html.Td("Hard to analyze how spending varies by channel.")])
         table_body = [html.Tbody([row1, row2])]
         return image, table_header + table_body
     
     elif active_tab == 'option-2':
-        row1 = html.Tr([html.Td("Easy to analyze how advertisement spending varies by channel for a quarter"), html.Td("Cannot accurately analyze how advertisement spending has changed between the two quarters since the total spendings of Q2 are not shown")])
-        row2 = html.Tr([html.Td("Easy to understand"), html.Td("Several advertisement channels are combined into a single category")])
-        row3 = html.Tr([html.Td(""), html.Td("Cannot immediately determine the spendings by channel since only percentages are shown")])
-        row4 = html.Tr([html.Td(""), html.Td("The chart shows that the total spendings of Q3 is 25.9 million but it is actually 25.9 thousand")])
-        table_body = [html.Tbody([row1, row2, row3, row4])]
+        row1 = html.Tr([html.Td("Easy to analyze how spending varies by channel for a quarter."), html.Td("Total spending of Q2 is not shown. Thus, analyzing  how spending has changed between the two quarters is impossible.")])
+        row2 = html.Tr([html.Td("Easy to understand."), html.Td("Cannot immediately determine the spendings by channel since only percentages are shown.")])
+        row3 = html.Tr([html.Td(""), html.Td("Total spending of Q3 is in millions but it is actually in thousands.")])
+        row4 = html.Tr([html.Td(""), html.Td("Several channels are combined into a single category.")])
+        row5 = html.Tr([html.Td(""), html.Td("Percentages are misleading since total spendings of the two quarters are not equal.")])
+        table_body = [html.Tbody([row1, row2, row3, row4, row5])]
         return image, table_header + table_body
     
     elif active_tab == 'option-3':
-        table_header = [html.Thead(html.Tr([html.Th("Disadvantages")]))]
-        row1 = html.Tr([html.Td("The bars having the same height may be misleading at first glance since it could mean that the total advertisement spendings of the two quarters are the same")])
-        row2 = html.Tr([html.Td("The total advertisement spendings for the two quarters are not shown")])
-        row3 = html.Tr([html.Td("Cannot determine the spendings by channel")])
-        row4 = html.Tr([html.Td("Cannot immediately determine the percentage of each channel. The percentage of each channel should be in the stacked bar")])
-        row5 = html.Tr([html.Td("Hard to determine the mapping between the labels and the stacked bars")])
-        row6 = html.Tr([html.Td("The chart should be colored and should have a colored legend so that the mapping between the labels and the stacked bars can be easily done")])
-        table_body = [html.Tbody([row1, row2, row3, row4, row5, row6])]
+        table_header = [html.Thead(html.Tr([html.Th([html.I(className="bi bi-dash-circle me-2"), "Disadvantages"])]))]
+        row1 = html.Tr([html.Td("Total spendings are not shown. Thus, analyzing  how spending has changed between the two quarters is impossible.")])
+        row2 = html.Tr([html.Td("Cannot determine the spendings by channel since only percentages are shown.")])
+        row3 = html.Tr([html.Td("Cannot immediately determine the percentage of each channel.")])
+        row4 = html.Tr([html.Td("Hard to determine the mapping between the labels and the stacked bars.")])
+        table_body = [html.Tbody([row1, row2, row3, row4])]
         return image, table_header + table_body
     
     else:
-        row1 = html.Tr([html.Td("Easy to analyze how advertisement spending has changed between the two quarters"), html.Td("Cannot distinguish between Q2 and Q3 since the bars are not labeled")])
-        row2 = html.Tr([html.Td("Easy to analyze how advertisement spending varies by channel"), html.Td("The y-axis is poorly labeled since it represents spend not total spend")])
-        row3 = html.Tr([html.Td(""), html.Td("The y-axis shows that the spendings are in millions but they are actually in thousands")])
-        table_body = [html.Tbody([row1, row2, row3])]
+        row1 = html.Tr([html.Td("Easy to analyze how spending has changed between the two quarters."), html.Td("Cannot distinguish between Q2 and Q3 since the bars are not labeled.")])
+        row2 = html.Tr([html.Td("Easy to analyze how spending varies by channel."), html.Td("Spendings are in thousands but the y-axis is in millions.")])
+        table_body = [html.Tbody([row1, row2])]
         return image, table_header + table_body
 
 
